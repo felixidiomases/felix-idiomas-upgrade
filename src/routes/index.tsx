@@ -2,27 +2,33 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import {
   AGENDA_URL,
+  AMANDA,
   AMANDA_IMAGE,
+  CONTATO,
+  DEPOIMENTOS,
+  DORES,
   EMAIL,
-  FAQS,
+  FAQ,
+  FOOTER,
+  GALERIA,
+  HERO,
   HERO_IMAGE,
-  METHOD_STEPS,
+  METODO,
   NAV_LINKS,
-  PACKAGE_OPTIONS,
-  PAIN_POINTS,
+  PRINTS,
+  PROFESSORES,
   PROGRAMS,
-  PROOF_SHOTS,
+  PROGRAMS_HEAD,
   STATS,
-  TESTIMONIALS,
+  VIDEOS,
+  WHATSAPP_PHONE,
   WHATSAPP_URL,
 } from "@/data/site";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      {
-        title: "Félix Idiomas | Inglês individual e online para a vida real",
-      },
+      { title: "Félix Idiomas | Inglês individual e online para a vida real" },
       {
         name: "description",
         content:
@@ -46,49 +52,82 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-function Section({
+/* ---------------- helpers ---------------- */
+
+function Wrap({
   id,
+  tone,
   children,
-  className = "",
+  narrow = false,
 }: {
   id?: string;
+  tone: "dark" | "darker" | "light";
   children: React.ReactNode;
-  className?: string;
+  narrow?: boolean;
 }) {
+  const toneClass =
+    tone === "dark" ? "fx-dark" : tone === "darker" ? "fx-darker" : "fx-light";
   return (
-    <section id={id} className={`px-5 py-20 md:py-28 ${className}`}>
-      <div className="mx-auto w-full max-w-6xl">{children}</div>
+    <section id={id} className={`${toneClass} px-5 py-20 md:py-28`}>
+      <div className={`mx-auto w-full ${narrow ? "max-w-3xl" : "max-w-6xl"}`}>
+        {children}
+      </div>
     </section>
   );
 }
 
+function Muted({
+  tone,
+  children,
+  className = "",
+}: {
+  tone: "dark" | "light";
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <p
+      className={`${tone === "dark" ? "text-ivory-soft" : "text-muted-foreground"} ${className}`}
+    >
+      {children}
+    </p>
+  );
+}
+
+/* ---------------- sections ---------------- */
+
 function Header() {
   const [open, setOpen] = useState(false);
   return (
-    <header className="sticky top-0 z-50 border-b border-border/60 bg-background/90 backdrop-blur">
+    <header className="fx-darker sticky top-0 z-50 border-b border-white/10">
       <div className="mx-auto flex w-full max-w-6xl items-center justify-between px-5 py-4">
-        <a href="#top" className="font-display text-xl font-bold tracking-tight">
-          Félix <span className="text-primary">Idiomas</span>
+        <a href="#topo" className="font-display text-xl font-bold tracking-tight">
+          Félix <span className="text-gold">Idiomas</span>
         </a>
         <nav className="hidden items-center gap-7 lg:flex">
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-primary"
+              className="text-ivory-soft hover:text-gold text-sm transition-colors"
             >
               {l.label}
             </a>
           ))}
         </nav>
         <div className="flex items-center gap-3">
-          <a href={AGENDA_URL} target="_blank" rel="noreferrer" className="btn-gold hidden md:inline-flex">
+          <a
+            href={AGENDA_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="btn-gold hidden md:inline-flex"
+          >
             Agendar avaliação
           </a>
           <button
             onClick={() => setOpen(!open)}
             aria-label="Abrir menu"
-            className="rounded-md border border-border p-2 lg:hidden"
+            className="rounded-md border border-white/25 p-2 lg:hidden"
           >
             <span className="block h-0.5 w-5 bg-current" />
             <span className="mt-1 block h-0.5 w-5 bg-current" />
@@ -97,13 +136,13 @@ function Header() {
         </div>
       </div>
       {open && (
-        <nav className="flex flex-col gap-1 border-t border-border/60 px-5 pb-4 lg:hidden">
+        <nav className="flex flex-col gap-1 border-t border-white/10 px-5 pb-4 lg:hidden">
           {NAV_LINKS.map((l) => (
             <a
               key={l.href}
               href={l.href}
               onClick={() => setOpen(false)}
-              className="py-2 text-sm text-muted-foreground"
+              className="text-ivory-soft py-2 text-sm"
             >
               {l.label}
             </a>
@@ -119,119 +158,109 @@ function Header() {
 
 function Hero() {
   return (
-    <Section id="top" className="pt-14 md:pt-20">
+    <Wrap id="topo" tone="dark">
       <div className="grid items-center gap-14 lg:grid-cols-2">
         <div>
-          <span className="eyebrow rounded-full border border-primary/50 px-4 py-2">
-            Linguagem que conecta mundos
+          <span className="eyebrow border-gold/50 rounded-full border px-4 py-2">
+            {HERO.pill}
           </span>
-          <h1 className="mt-7 text-4xl leading-[1.08] font-bold md:text-6xl">
-            Inglês pra usar na sua vida de verdade, não só no caderno.
+          <h1 className="mt-7 text-4xl leading-[1.08] font-semibold md:text-6xl">
+            {HERO.title}
           </h1>
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted-foreground">
-            Aulas 100% individuais e online, construídas em cima do seu objetivo — seja
-            uma entrevista, uma mudança de país, uma viagem ou aquela reunião que você
-            vem adiando em inglês.
-          </p>
+          <Muted tone="dark" className="mt-6 max-w-xl text-base leading-relaxed">
+            {HERO.sub}
+          </Muted>
           <div className="mt-9 flex flex-wrap gap-3">
             <a href={AGENDA_URL} target="_blank" rel="noreferrer" className="btn-gold">
-              Agendar avaliação gratuita!
+              {HERO.btn1}
             </a>
             <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-outline">
-              Falar no WhatsApp!
+              {HERO.btn2}
             </a>
           </div>
-          <div className="mt-12 grid grid-cols-3 gap-6 border-t border-border pt-8">
+          <dl className="mt-12 grid grid-cols-3 gap-6 border-t border-white/15 pt-8">
             {STATS.map((s) => (
               <div key={s.label}>
-                <p className="font-display text-2xl font-bold text-primary md:text-3xl">
+                <dt className="font-display text-gold text-2xl font-semibold md:text-3xl">
                   {s.value}
-                </p>
-                <p className="mt-1 text-[0.7rem] tracking-wider text-muted-foreground uppercase">
+                </dt>
+                <dd className="text-ivory-soft mt-1 text-[0.7rem] tracking-[0.18em] uppercase">
                   {s.label}
-                </p>
+                </dd>
               </div>
             ))}
-          </div>
+          </dl>
         </div>
-        <div className="rounded-3xl border border-primary/25 p-3 shadow-[var(--shadow-soft)]">
+        <div className="border-gold/25 rounded-3xl border p-3 shadow-[var(--shadow-lux)]">
           <img
             src={HERO_IMAGE}
-            alt="Amanda Félix, fundadora da Félix Idiomas, sentada lendo um livro"
+            alt="Amanda Félix, fundadora da Félix Idiomas, lendo um livro"
             className="h-full w-full rounded-2xl object-cover"
-            loading="eager"
           />
         </div>
       </div>
-    </Section>
+    </Wrap>
   );
 }
 
-function PainPoints() {
+function Dores() {
   return (
-    <Section className="bg-card/40">
-      <h2 className="max-w-3xl text-3xl leading-tight font-bold md:text-4xl">
-        Todo mundo trava no mesmo ponto: sair do livro e entrar na vida real.
-      </h2>
-      <p className="mt-5 max-w-3xl text-muted-foreground">
-        Seja para uma carreira global, uma viagem pelo mundo ou um emprego dos sonhos no
-        exterior — o problema nunca foi você, foi tentar aprender inglês do jeito de todo
-        mundo, quando o seu inglês precisa servir pra sua vida, não pra um livro didático.
-      </p>
-      <ul className="mt-12 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {PAIN_POINTS.map((p) => (
-          <li
-            key={p}
-            className="flex gap-3 rounded-2xl border border-border bg-card p-6 text-sm leading-relaxed text-muted-foreground"
+    <Wrap tone="light">
+      <div className="mx-auto max-w-3xl text-center">
+        <h2 className="text-3xl leading-tight font-semibold md:text-4xl">{DORES.title}</h2>
+        <Muted tone="light" className="mt-5">
+          {DORES.sub}
+        </Muted>
+      </div>
+      <div className="mt-12 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+        {DORES.items.map((d) => (
+          <div
+            key={d}
+            className="border-border bg-card flex gap-3 rounded-2xl border p-6 text-sm leading-relaxed"
           >
-            <span className="text-primary">✕</span>
-            {p}
-          </li>
+            <span className="text-gold">✕</span>
+            <span className="text-muted-foreground">{d}</span>
+          </div>
         ))}
-      </ul>
-      <div className="mt-10">
-        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-gold">
-          Quero superar essas barreiras
+      </div>
+      <div className="mt-10 flex justify-center">
+        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-ghost">
+          {DORES.btn}
         </a>
       </div>
-    </Section>
+    </Wrap>
   );
 }
 
-function Programs() {
+function Programas() {
   return (
-    <Section id="programas">
-      <span className="eyebrow">Programas</span>
-      <h2 className="mt-3 text-3xl leading-tight font-bold md:text-4xl">
-        O caminho certo para o seu objetivo
-      </h2>
-      <p className="mt-4 max-w-2xl text-muted-foreground">
-        Empresário, nômade digital, futura vaga internacional ou viajante de alma livre —
-        aqui tem um programa que fala a sua língua.
-      </p>
-      {/* Layout fixo em 2 colunas */}
-      <div className="mt-12 grid gap-8 md:grid-cols-2">
+    <Wrap id="programas" tone="dark">
+      <div className="text-center">
+        <p className="eyebrow">{PROGRAMS_HEAD.eyebrow}</p>
+        <h2 className="mt-3 text-3xl leading-tight font-semibold md:text-4xl">
+          {PROGRAMS_HEAD.title}
+        </h2>
+        <Muted tone="dark" className="mx-auto mt-4 max-w-2xl">
+          {PROGRAMS_HEAD.sub}
+        </Muted>
+      </div>
+      <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
         {PROGRAMS.map((p) => (
           <article
             key={p.title}
-            className="overflow-hidden rounded-3xl border border-border bg-card shadow-[var(--shadow-soft)]"
+            className="overflow-hidden rounded-3xl border border-white/12 bg-white/[0.04] shadow-[var(--shadow-lux)]"
           >
-            <img
-              src={p.image}
-              alt={p.title}
-              className="h-56 w-full object-cover"
-              loading="lazy"
-            />
-            <div className="p-8">
-              <h3 className="text-2xl font-bold">{p.title}</h3>
-              <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+            <img src={p.image} alt={p.title} className="h-52 w-full object-cover" loading="lazy" />
+            <div className="p-7">
+              <h3 className="text-2xl font-semibold">{p.title}</h3>
+              <Muted tone="dark" className="mt-3 text-sm leading-relaxed">
                 {p.description}
-              </p>
+              </Muted>
               <ul className="mt-6 space-y-2 text-sm">
                 {p.features.map((f) => (
                   <li key={f} className="flex gap-2">
-                    <span className="text-primary">—</span>
-                    <span className="text-muted-foreground">{f}</span>
+                    <span className="text-gold">—</span>
+                    <span className="text-ivory-soft">{f}</span>
                   </li>
                 ))}
               </ul>
@@ -239,56 +268,60 @@ function Programs() {
                 href={AGENDA_URL}
                 target="_blank"
                 rel="noreferrer"
-                className="btn-gold mt-8 w-full"
+                className="btn-ghost mt-7 w-full"
               >
-                Agendar avaliação gratuita
+                {PROGRAMS_HEAD.btn}
               </a>
             </div>
           </article>
         ))}
       </div>
-    </Section>
+    </Wrap>
   );
 }
 
-function Method() {
+function Metodo() {
   return (
-    <Section id="metodo" className="bg-card/40">
-      <span className="eyebrow">Metodologia Félix</span>
-      <h2 className="mt-3 text-3xl leading-tight font-bold md:text-4xl">
-        Do bloqueio à fluência — e da fluência ao seu sonho
-      </h2>
-      <p className="mt-4 max-w-2xl text-muted-foreground">
-        Uma metodologia que respeita a sua história, a sua rotina e o seu objetivo.
-      </p>
+    <Wrap id="metodo" tone="light">
+      <div className="text-center">
+        <p className="eyebrow">{METODO.eyebrow}</p>
+        <h2 className="mt-3 text-3xl leading-tight font-semibold md:text-4xl">
+          {METODO.title}
+        </h2>
+        <Muted tone="light" className="mx-auto mt-4 max-w-2xl">
+          {METODO.sub}
+        </Muted>
+      </div>
       <div className="mt-12 grid gap-6 md:grid-cols-3">
-        {METHOD_STEPS.map((s) => (
-          <div key={s.number} className="rounded-3xl border border-border bg-card p-8">
-            <span className="font-display text-4xl font-bold text-primary/40">
+        {METODO.steps.map((s) => (
+          <div key={s.number} className="border-border bg-card rounded-3xl border p-8">
+            <span className="font-display text-gold/60 text-4xl font-semibold">
               {s.number}
             </span>
-            <h3 className="mt-4 text-xl font-bold">{s.title}</h3>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{s.text}</p>
+            <h3 className="mt-4 text-xl font-semibold">{s.title}</h3>
+            <Muted tone="light" className="mt-3 text-sm leading-relaxed">
+              {s.text}
+            </Muted>
           </div>
         ))}
       </div>
-      <div className="mt-10 flex flex-wrap gap-3">
+      <div className="mt-10 flex flex-wrap justify-center gap-3">
         <a href={AGENDA_URL} target="_blank" rel="noreferrer" className="btn-gold">
-          Começar minha avaliação gratuita
+          {METODO.btn1}
         </a>
-        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-outline">
-          Tirar dúvidas no WhatsApp
+        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-ghost">
+          {METODO.btn2}
         </a>
       </div>
-    </Section>
+    </Wrap>
   );
 }
 
-function About() {
+function Amanda() {
   return (
-    <Section id="amanda">
+    <Wrap id="amanda" tone="dark">
       <div className="grid items-center gap-14 lg:grid-cols-2">
-        <div className="rounded-3xl border border-primary/25 p-3 shadow-[var(--shadow-soft)]">
+        <div className="border-gold/25 rounded-3xl border p-3 shadow-[var(--shadow-lux)]">
           <img
             src={AMANDA_IMAGE}
             alt="Retrato de Amanda Félix, CEO e fundadora da Félix Idiomas"
@@ -297,71 +330,77 @@ function About() {
           />
         </div>
         <div>
-          <span className="eyebrow">Quem está por trás</span>
-          <h2 className="mt-3 text-3xl leading-tight font-bold md:text-4xl">
-            Amanda Félix — CEO e fundadora
+          <p className="eyebrow">{AMANDA.eyebrow}</p>
+          <h2 className="mt-3 text-3xl leading-tight font-semibold md:text-4xl">
+            {AMANDA.title}
           </h2>
-          <div className="mt-6 space-y-4 text-sm leading-relaxed text-muted-foreground">
-            <p>
-              Durante anos, acreditei que o inglês era um território reservado a poucos.
-              Na escola, o idioma chegava até mim em forma de regra, decoreba e, sobretudo,
-              de medo: medo de errar, de falar, de ser julgada.
-            </p>
-            <p>
-              Estudei muito. Minha gramática amadureceu, minha escrita evoluiu. Mas quando
-              precisei falar de verdade — fora do Brasil, diante de pessoas reais — eu
-              travei. As palavras existiam, só não saíam.
-            </p>
-            <p>
-              A fluência não veio dos livros. Veio da vida: de trabalhar internacionalmente,
-              de viver em inglês todos os dias, de construir um relacionamento
-              intercultural, de errar, ser corrigida e tentar de novo até acertar.
-            </p>
-            <p>
-              Foi dessa vivência que nasceu a Félix Idiomas. Nosso compromisso é simples:
-              poupar você do caminho sofrido e levar direto ao resultado. Você não precisa
-              provar que é capaz — precisa apenas dar o primeiro passo.
-            </p>
+          <div className="mt-6 space-y-4">
+            {AMANDA.paragraphs.map((p) => (
+              <Muted key={p} tone="dark" className="text-sm leading-relaxed">
+                {p}
+              </Muted>
+            ))}
           </div>
-          <p className="mt-6 font-display text-lg font-bold">Amanda Félix</p>
-          <p className="text-xs tracking-wider text-muted-foreground uppercase">
-            CEO e fundadora — Félix Idiomas
+          <p className="font-display mt-6 text-lg font-semibold">{AMANDA.sign}</p>
+          <p className="text-ivory-soft text-xs tracking-[0.18em] uppercase">
+            {AMANDA.role}
           </p>
           <div className="mt-8 flex flex-wrap gap-3">
             <a href={AGENDA_URL} target="_blank" rel="noreferrer" className="btn-gold">
-              Quero dar o meu primeiro passo
+              {AMANDA.btn1}
             </a>
             <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-outline">
-              Falar agora
+              {AMANDA.btn2}
             </a>
           </div>
         </div>
       </div>
-    </Section>
+
+      {GALERIA.items.length > 0 && (
+        <div className="mt-20">
+          <div className="text-center">
+            <h3 className="font-display text-2xl font-semibold">{GALERIA.title}</h3>
+            <Muted tone="dark" className="mx-auto mt-3 max-w-2xl text-sm">
+              {GALERIA.sub}
+            </Muted>
+          </div>
+          <div className="mt-8 flex snap-x gap-4 overflow-x-auto pb-3">
+            {GALERIA.items.map((g) => (
+              <figure key={g.src} className="w-64 shrink-0 snap-start">
+                <img
+                  src={g.src}
+                  alt={g.caption || "Viagem"}
+                  className="h-72 w-full rounded-2xl object-cover"
+                  loading="lazy"
+                />
+                {g.caption && (
+                  <figcaption className="text-ivory-soft mt-2 text-xs">
+                    {g.caption}
+                  </figcaption>
+                )}
+              </figure>
+            ))}
+          </div>
+        </div>
+      )}
+    </Wrap>
   );
 }
 
-function Teachers() {
+function Professores() {
   return (
-    <Section className="bg-card/40">
-      <div className="mx-auto max-w-3xl text-center">
-        <span className="eyebrow">Sobre os professores</span>
-        <h2 className="mt-3 text-3xl leading-tight font-bold md:text-4xl">
-          Guias que caminham com você
+    <Wrap tone="light" narrow>
+      <div className="text-center">
+        <p className="eyebrow">{PROFESSORES.eyebrow}</p>
+        <h2 className="mt-3 text-3xl leading-tight font-semibold md:text-4xl">
+          {PROFESSORES.title}
         </h2>
-        <div className="mt-6 space-y-4 text-sm leading-relaxed text-muted-foreground">
-          <p>
-            Na Félix Idiomas, você pode ter diferentes professores ao longo da jornada — e
-            isso é um diferencial planejado, não um acaso.
-          </p>
-          <p>
-            Na vida real, você conversa com pessoas diferentes: sotaques, ritmos e estilos
-            distintos. Nossa estrutura prepara você justamente para essa diversidade.
-          </p>
-          <p>
-            Todo o time segue a mesma metodologia personalizada. O professor é o guia que
-            acompanha você — e você é o protagonista da própria jornada.
-          </p>
+        <div className="mt-6 space-y-4">
+          {PROFESSORES.paragraphs.map((p) => (
+            <Muted key={p} tone="light" className="text-sm leading-relaxed">
+              {p}
+            </Muted>
+          ))}
         </div>
         <a
           href={AGENDA_URL}
@@ -369,310 +408,309 @@ function Teachers() {
           rel="noreferrer"
           className="btn-gold mt-8"
         >
-          Agendar minha avaliação gratuita
+          {PROFESSORES.btn}
         </a>
       </div>
-    </Section>
+    </Wrap>
   );
 }
 
-function Testimonials() {
+function Depoimentos() {
   return (
-    <Section id="resultados">
-      <span className="eyebrow">Depoimentos</span>
-      <h2 className="mt-3 text-3xl leading-tight font-bold md:text-4xl">
-        Resultados de quem já vive em inglês
-      </h2>
+    <Wrap id="depoimentos" tone="dark">
+      <div className="text-center">
+        <p className="eyebrow">{DEPOIMENTOS.eyebrow}</p>
+        <h2 className="mt-3 text-3xl leading-tight font-semibold md:text-4xl">
+          {DEPOIMENTOS.title}
+        </h2>
+      </div>
       <div className="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {TESTIMONIALS.map((t) => (
+        {DEPOIMENTOS.items.map((t) => (
           <figure
             key={t.name}
-            className="flex flex-col rounded-3xl border border-border bg-card p-7"
+            className="flex flex-col rounded-3xl border border-white/12 bg-white/[0.04] p-7"
           >
-            <div className="text-primary">★★★★★</div>
-            <blockquote className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground italic">
+            <div className="text-gold">★★★★★</div>
+            <blockquote className="text-ivory-soft mt-4 flex-1 text-sm leading-relaxed italic">
               “{t.quote}”
             </blockquote>
-            <figcaption className="mt-6 border-t border-border pt-4">
-              <p className="font-display font-bold">{t.name}</p>
-              <p className="text-xs text-muted-foreground">{t.role}</p>
+            <figcaption className="mt-6 border-t border-white/12 pt-4">
+              <strong className="font-display block font-semibold">{t.name}</strong>
+              <span className="text-ivory-soft text-xs">{t.role}</span>
             </figcaption>
           </figure>
         ))}
       </div>
-      <div className="mt-10">
-        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-gold">
-          Quero resultados como esses
+      <div className="mt-10 flex justify-center">
+        <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-ghost">
+          {DEPOIMENTOS.btn}
         </a>
       </div>
-    </Section>
+    </Wrap>
   );
 }
 
-function ProofShots() {
+function Prints() {
   const [active, setActive] = useState<string | null>(null);
-  const shots = PROOF_SHOTS.slice(0, 10);
+  if (PRINTS.items.length === 0) return null;
 
   return (
-    <Section className="bg-card/40">
-      <span className="eyebrow">Prova real</span>
-      <h2 className="mt-3 text-3xl leading-tight font-bold md:text-4xl">
-        O que os alunos mandam para a gente
-      </h2>
-      <p className="mt-4 max-w-2xl text-muted-foreground">
-        Mensagens e conquistas reais de quem destravou o inglês com a Félix Idiomas.
-      </p>
+    <Wrap id="depoimentos-fotos" tone="light">
+      <div className="text-center">
+        <p className="eyebrow">{PRINTS.eyebrow}</p>
+        <h2 className="mt-3 text-3xl leading-tight font-semibold md:text-4xl">
+          {PRINTS.title}
+        </h2>
+        <Muted tone="light" className="mx-auto mt-4 max-w-2xl">
+          {PRINTS.sub}
+        </Muted>
+      </div>
 
-      {/* Galeria de prints: comporta até 10 fotos */}
-      <div className="mt-12 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-        {shots.map((src, i) => (
-          <button
-            key={src}
-            onClick={() => setActive(src)}
-            className="group overflow-hidden rounded-2xl border border-border bg-card"
-          >
-            <img
-              src={src}
-              alt={`Print de depoimento de aluno ${i + 1}`}
-              className="aspect-[3/4] w-full object-cover transition-transform duration-500 group-hover:scale-105"
-              loading="lazy"
-            />
-          </button>
-        ))}
-        {Array.from({ length: Math.max(0, 10 - shots.length) }).map((_, i) => (
-          <div
-            key={`slot-${i}`}
-            className="flex aspect-[3/4] items-center justify-center rounded-2xl border border-dashed border-border/70 p-3 text-center text-[0.65rem] tracking-wider text-muted-foreground uppercase"
-          >
-            Espaço para print {shots.length + i + 1}
-          </div>
+      <div className="mt-12 flex snap-x gap-5 overflow-x-auto pb-4">
+        {PRINTS.items.map((d, i) => (
+          <figure key={d.src} className="w-64 shrink-0 snap-start">
+            <button
+              onClick={() => setActive(d.src)}
+              className="border-border bg-card block w-full overflow-hidden rounded-2xl border"
+            >
+              <img
+                src={d.src}
+                alt={d.caption || `Depoimento de aluno ${i + 1}`}
+                className="aspect-[3/4] w-full object-cover"
+                loading="lazy"
+              />
+            </button>
+            {d.caption && (
+              <figcaption className="text-muted-foreground mt-2 text-xs">
+                {d.caption}
+              </figcaption>
+            )}
+          </figure>
         ))}
       </div>
 
       {active && (
         <div
           onClick={() => setActive(null)}
-          className="fixed inset-0 z-[60] flex items-center justify-center bg-background/95 p-6"
+          className="fixed inset-0 z-[60] flex items-center justify-center bg-black/85 p-6"
         >
           <img
             src={active}
             alt="Print de depoimento ampliado"
-            className="max-h-[85vh] w-auto rounded-2xl border border-border"
+            className="max-h-[85vh] w-auto rounded-2xl"
           />
         </div>
       )}
 
-      <div className="mt-10">
+      <div className="mt-8 flex justify-center">
         <a href={AGENDA_URL} target="_blank" rel="noreferrer" className="btn-gold">
-          Quero viver isso também
+          {PRINTS.btn}
         </a>
       </div>
-    </Section>
+    </Wrap>
+  );
+}
+
+function Videos() {
+  const items = VIDEOS.items.filter((v) => v.url);
+  if (items.length === 0) return null;
+  return (
+    <Wrap id="videos" tone="darker">
+      <div className="text-center">
+        <p className="eyebrow">{VIDEOS.eyebrow}</p>
+        <h2 className="mt-3 text-3xl leading-tight font-semibold md:text-4xl">
+          {VIDEOS.title}
+        </h2>
+      </div>
+      <div className="mt-12 grid gap-8 md:grid-cols-2">
+        {items.map((v) => (
+          <div key={v.title}>
+            <div className="aspect-video overflow-hidden rounded-2xl border border-white/12">
+              <iframe
+                src={v.url}
+                title={v.title}
+                loading="lazy"
+                allowFullScreen
+                className="h-full w-full"
+              />
+            </div>
+            <p className="text-ivory-soft mt-3 text-sm">{v.title}</p>
+          </div>
+        ))}
+      </div>
+      <div className="mt-10 flex justify-center">
+        <a href={AGENDA_URL} target="_blank" rel="noreferrer" className="btn-gold">
+          {VIDEOS.btn}
+        </a>
+      </div>
+    </Wrap>
   );
 }
 
 function Faq() {
   return (
-    <Section id="faq">
-      <span className="eyebrow">Perguntas frequentes</span>
-      <h2 className="mt-3 text-3xl leading-tight font-bold md:text-4xl">
-        Tudo o que você precisa saber antes do seu “Hello”
-      </h2>
-      <div className="mt-10 divide-y divide-border overflow-hidden rounded-3xl border border-border bg-card">
-        {FAQS.map((f) => (
+    <Wrap id="faq" tone="dark" narrow>
+      <div className="text-center">
+        <p className="eyebrow">{FAQ.eyebrow}</p>
+        <h2 className="mt-3 text-3xl leading-tight font-semibold md:text-4xl">
+          {FAQ.title}
+        </h2>
+      </div>
+      <div className="mt-10 divide-y divide-white/12 overflow-hidden rounded-3xl border border-white/12 bg-white/[0.04]">
+        {FAQ.items.map((f) => (
           <details key={f.q} className="group p-6">
-            <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-base font-bold">
+            <summary className="font-display flex cursor-pointer list-none items-center justify-between gap-4 text-base font-semibold">
               {f.q}
-              <span className="text-primary transition-transform group-open:rotate-45">
-                +
-              </span>
+              <span className="text-gold transition-transform group-open:rotate-45">+</span>
             </summary>
-            <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{f.a}</p>
+            <p className="text-ivory-soft mt-3 text-sm leading-relaxed">{f.a}</p>
           </details>
         ))}
       </div>
-      <div className="mt-10">
+      <div className="mt-10 flex justify-center">
         <a href={WHATSAPP_URL} target="_blank" rel="noreferrer" className="btn-gold">
-          Ainda tenho dúvidas — quero falar agora
+          {FAQ.btn}
         </a>
       </div>
-    </Section>
+    </Wrap>
   );
 }
 
-function Contact() {
-  const [name, setName] = useState("");
+function Contato() {
+  const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
-  const [phone, setPhone] = useState("");
-  const [packageName, setPackageName] = useState(PACKAGE_OPTIONS[0]);
-  const [message, setMessage] = useState("");
+  const [tel, setTel] = useState("");
+  const [programa, setPrograma] = useState(PROGRAMS[0].title);
+  const [mensagem, setMensagem] = useState("");
 
-  const send = (e: React.FormEvent) => {
+  const enviar = (e: React.FormEvent) => {
     e.preventDefault();
-    const text = [
+    const texto = [
       "Olá! Vim pelo site da Félix Idiomas.",
-      `Nome: ${name}`,
+      `Nome: ${nome}`,
       `E-mail: ${email}`,
-      `WhatsApp: ${phone}`,
-      `Pacote de interesse: ${packageName}`,
-      message ? `Mensagem: ${message}` : "",
+      `WhatsApp: ${tel}`,
+      `Programa de interesse: ${programa}`,
+      mensagem ? `Mensagem: ${mensagem}` : "",
     ]
       .filter(Boolean)
       .join("\n");
     window.open(
-      `https://wa.me/556291618508?text=${encodeURIComponent(text)}`,
+      `https://wa.me/${WHATSAPP_PHONE}?text=${encodeURIComponent(texto)}`,
       "_blank",
     );
   };
 
   const field =
-    "w-full rounded-xl border border-input bg-background px-4 py-3 text-sm outline-none transition-colors focus:border-primary";
+    "w-full rounded-xl border border-white/20 bg-white/[0.04] px-4 py-3 text-sm text-ivory placeholder:text-ivory-soft/60 outline-none transition-colors focus:border-gold";
 
   return (
-    <Section id="contato" className="bg-card/40">
+    <Wrap id="contato" tone="darker">
       <div className="grid gap-14 lg:grid-cols-2">
         <div>
-          <span className="eyebrow">Agende agora</span>
-          <h2 className="mt-3 text-3xl leading-tight font-bold md:text-4xl">
-            Sua avaliação de nível e gratuita!
+          <p className="eyebrow">{CONTATO.eyebrow}</p>
+          <h2 className="mt-3 text-3xl leading-tight font-semibold md:text-4xl">
+            {CONTATO.title}
           </h2>
-          <p className="mt-4 text-muted-foreground">
-            Em 30 minutos descobrimos onde você está, para onde quer ir e montamos o
-            caminho mais rápido para você chegar lá.
-          </p>
-          <ul className="mt-8 space-y-3 text-sm text-muted-foreground">
-            {[
-              "Aulas online de qualquer lugar do Brasil",
-              "Professores experientes",
-              "Conteúdo personalizado",
-              "Foco em conversação desde o primeiro dia",
-            ].map((i) => (
+          <Muted tone="dark" className="mt-4">
+            {CONTATO.sub}
+          </Muted>
+          <ul className="mt-8 space-y-3 text-sm">
+            {CONTATO.items.map((i) => (
               <li key={i} className="flex gap-3">
-                <span className="text-primary">✓</span>
-                {i}
+                <span className="text-gold">✓</span>
+                <span className="text-ivory-soft">{i}</span>
               </li>
             ))}
           </ul>
-          <p className="mt-8 text-sm text-muted-foreground">{EMAIL}</p>
+          <div className="my-8 h-px bg-white/15" />
+          <p className="text-ivory-soft text-sm">{EMAIL}</p>
           <a
             href={AGENDA_URL}
             target="_blank"
             rel="noreferrer"
-            className="btn-outline mt-6"
+            className="btn-ghost mt-6"
           >
-            Agendar pela agenda online
+            {CONTATO.btnAgenda}
           </a>
         </div>
 
         <form
-          onSubmit={send}
-          className="rounded-3xl border border-border bg-card p-8 shadow-[var(--shadow-soft)]"
+          onSubmit={enviar}
+          className="space-y-4 rounded-3xl border border-white/12 bg-white/[0.04] p-8"
         >
-          <div className="space-y-4">
-            <div>
-              <label htmlFor="nome" className="mb-2 block text-xs tracking-wider uppercase">
-                Nome
-              </label>
-              <input
-                id="nome"
-                required
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                className={field}
-                placeholder="Seu nome completo"
-              />
-            </div>
-            <div className="grid gap-4 sm:grid-cols-2">
-              <div>
-                <label htmlFor="email" className="mb-2 block text-xs tracking-wider uppercase">
-                  E-mail
-                </label>
-                <input
-                  id="email"
-                  type="email"
-                  required
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  className={field}
-                  placeholder="voce@email.com"
-                />
-              </div>
-              <div>
-                <label htmlFor="tel" className="mb-2 block text-xs tracking-wider uppercase">
-                  WhatsApp
-                </label>
-                <input
-                  id="tel"
-                  value={phone}
-                  onChange={(e) => setPhone(e.target.value)}
-                  className={field}
-                  placeholder="(00) 00000-0000"
-                />
-              </div>
-            </div>
-            <div>
-              <label
-                htmlFor="pacote"
-                className="mb-2 block text-xs tracking-wider uppercase"
-              >
-                Pacote de interesse
-              </label>
-              <input
-                id="pacote"
-                list="pacotes"
-                value={packageName}
-                onChange={(e) => setPackageName(e.target.value)}
-                className={field}
-                placeholder="Escolha ou escreva o nome do pacote"
-              />
-              <datalist id="pacotes">
-                {PACKAGE_OPTIONS.map((o) => (
-                  <option key={o} value={o} />
-                ))}
-              </datalist>
-              <p className="mt-2 text-xs text-muted-foreground">
-                Você pode escolher uma opção da lista ou digitar outro nome de pacote.
-              </p>
-            </div>
-            <div>
-              <label
-                htmlFor="mensagem"
-                className="mb-2 block text-xs tracking-wider uppercase"
-              >
-                Mensagem
-              </label>
-              <textarea
-                id="mensagem"
-                rows={4}
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                className={field}
-                placeholder="Conte seu objetivo com o inglês"
-              />
-            </div>
-            <button type="submit" className="btn-gold w-full">
-              Quero abrir novas portas
-            </button>
-            <p className="text-center text-xs text-muted-foreground">
-              Seus dados estão seguros e não serão compartilhados.
-            </p>
-          </div>
+          <input
+            required
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            className={field}
+            placeholder={CONTATO.formNome}
+            aria-label={CONTATO.formNome}
+          />
+          <input
+            required
+            type="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            className={field}
+            placeholder={CONTATO.formEmail}
+            aria-label={CONTATO.formEmail}
+          />
+          <input
+            required
+            type="tel"
+            value={tel}
+            onChange={(e) => setTel(e.target.value)}
+            className={field}
+            placeholder={CONTATO.formTel}
+            aria-label={CONTATO.formTel}
+          />
+          <select
+            value={programa}
+            onChange={(e) => setPrograma(e.target.value)}
+            className={field}
+            aria-label="Programa de interesse"
+          >
+            {PROGRAMS.map((p) => (
+              <option key={p.title} value={p.title} className="text-charcoal">
+                {p.title}
+              </option>
+            ))}
+          </select>
+          <textarea
+            rows={4}
+            value={mensagem}
+            onChange={(e) => setMensagem(e.target.value)}
+            className={field}
+            placeholder={CONTATO.formMsg}
+            aria-label="Mensagem"
+          />
+          <button type="submit" className="btn-gold w-full">
+            {CONTATO.btnForm}
+          </button>
+          <p className="text-ivory-soft/70 text-center text-xs">{CONTATO.formNote}</p>
         </form>
       </div>
-    </Section>
+    </Wrap>
   );
 }
 
 function Footer() {
   return (
-    <footer className="border-t border-border px-5 py-10">
-      <div className="mx-auto flex w-full max-w-6xl flex-wrap items-center justify-between gap-4">
-        <p className="font-display text-lg font-bold">
-          Félix <span className="text-primary">Idiomas</span>
-        </p>
-        <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} Félix Idiomas. Todos os direitos reservados.
-        </p>
+    <footer className="fx-dark border-t border-white/10 px-5 py-12">
+      <div className="mx-auto grid w-full max-w-6xl gap-6 md:grid-cols-2">
+        <div>
+          <p className="font-display text-lg font-semibold">
+            Félix <span className="text-gold">Idiomas</span>
+          </p>
+          <p className="text-ivory-soft mt-2 max-w-sm text-sm">{FOOTER.about}</p>
+        </div>
+        <div className="md:text-right">
+          <p className="text-ivory-soft text-sm">{FOOTER.local}</p>
+          <p className="text-ivory-soft/70 mt-2 text-xs">
+            © {new Date().getFullYear()} {FOOTER.copy}
+          </p>
+        </div>
       </div>
     </footer>
   );
@@ -684,15 +722,16 @@ function Index() {
       <Header />
       <main>
         <Hero />
-        <PainPoints />
-        <Programs />
-        <Method />
-        <About />
-        <Teachers />
-        <Testimonials />
-        <ProofShots />
+        <Dores />
+        <Programas />
+        <Metodo />
+        <Amanda />
+        <Professores />
+        <Depoimentos />
+        <Prints />
+        <Videos />
         <Faq />
-        <Contact />
+        <Contato />
       </main>
       <Footer />
       <a
