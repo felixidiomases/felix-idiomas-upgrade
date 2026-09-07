@@ -1,0 +1,104 @@
+FELIX IDIOMAS - TEMA WORDPRESS
+==============================
+
+Este arquivo ZIP e um TEMA de WordPress pronto. Não precisa de Elementor,
+não precisa de plugin nenhum. Basta instalar e ativar.
+
+
+PASSO 1 - INSTALAR O TEMA
+-------------------------
+1. Entre no painel do WordPress (seusite.com.br/wp-admin).
+2. Menu lateral: Aparência > Temas.
+3. Clique no botão "Adicionar novo tema" (topo da página).
+4. Clique em "Enviar tema".
+5. Clique em "Escolher arquivo" e selecione: felix-idiomas-tema.zip
+6. Clique em "Instalar agora".
+7. Quando terminar, clique em "Ativar".
+
+Pronto. Abra seusite.com.br e a home já aparece completa.
+
+
+PASSO 2 - GARANTIR QUE A HOME MOSTRE O SITE
+-------------------------------------------
+Se a home aparecer com lista de posts em vez do site:
+1. Painel: Configurações > Leitura.
+2. Em "Sua página inicial exibe", marque "Uma página estática".
+3. Em "Página inicial", escolha uma página (crie uma chamada "Home"
+   em Páginas > Adicionar nova, se não existir).
+4. Salvar alterações.
+
+
+PASSO 3 - EDITAR TEXTOS, LINKS E FOTOS
+--------------------------------------
+Painel: Aparência > Personalizar > "Félix Idiomas - conteúdo do site".
+
+Dentro dele você encontra:
+  1. Botões, WhatsApp e agenda ... link da agenda, número do WhatsApp,
+                                   mensagem automática, e-mail do formulário
+  2. Topo (Hero) ................. título, subtítulo, textos e links dos
+                                   2 botões, foto do topo, os 3 números
+  3. Programas ................... título/descrição/foto dos 3 programas
+  4. Amanda Félix ................ título, texto e foto
+  5. Vídeos ...................... título e link do YouTube (2 vídeos)
+  6. Seção de contato ............ título, subtítulo e texto do botão
+  7. Rodapé ...................... texto da marca, cidade e copyright
+
+Para trocar uma foto: clique em "Selecionar imagem", envie a nova foto
+e clique em "Publicar" no topo do Personalizar.
+
+Logo: Aparência > Personalizar > Identidade do site > Logotipo.
+
+
+PASSO 4 - MENU DO TOPO E DO RODAPE
+----------------------------------
+O menu já vem preenchido automaticamente. Para personalizar:
+1. Aparência > Menus > Criar novo menu.
+2. Adicione itens do tipo "Links personalizados" usando as âncoras:
+     #programas    Programas
+     #método       Método
+     #amanda       Amanda Félix
+     #depoimentos  Resultados
+     #faq          FAQ
+     #contato      Contato
+3. Em "Configurações do menu", marque "Menu principal (topo)"
+   e/ou "Menu do rodapé".
+4. Salvar menu.
+
+
+PASSO 5 - FORMULARIO DE CONTATO
+-------------------------------
+O formulário envia os dados para o e-mail configurado em
+Personalizar > 1. Botões, WhatsApp e agenda > "E-mail que recebe o formulário".
+
+IMPORTANTE: hospedagens costumam bloquear o envio direto do WordPress.
+Se os e-mails não chegarem, instale o plugin gratuito "WP Mail SMTP"
+(Plugins > Adicionar novo) e configure com o e-mail da sua hospedagem
+ou com o Gmail. Isso resolve em 99% dos casos.
+
+
+DUVIDAS COMUNS
+--------------
+"Instalei e o site ficou branco" -> confira se ativou o tema em Aparência > Temas.
+"A home mostra os posts do blog" -> faca o PASSO 2.
+"As fotos são de exemplo" -> troque em Aparência > Personalizar (PASSO 3).
+"O botão de agendar vai para o link errado" -> Personalizar > seção 1.
+
+--------------------------------------------------
+NOVIDADES DESTA VERSAO (1.1)
+--------------------------------------------------
+- TODOS os textos, botões e imagens são editáveis em
+  Aparência > Personalizar > "Félix Idiomas - conteúdo do site".
+  São 13 abas: botões/WhatsApp/agenda, topo, dores, programas,
+  metodologia, Amanda, professores, depoimentos, depoimentos em foto,
+  vídeos, FAQ, contato/formulário e rodapé.
+- Novo bloco "Depoimentos em foto (prints)": até 6 imagens com legenda.
+  Deixe o campo da imagem vazio para remover a foto; se todas ficarem
+  vazias, o bloco some da página.
+- Nova galeria de viagens dentro do bloco da Amanda: até 8 fotos com
+  legenda, também com adicionar/remover pelo Personalizar.
+- Menu e rodapé: Aparência > Menus (locais "Menu principal" e "Rodapé").
+- Logo: Aparência > Personalizar > Identidade do site > Logo.
+- As fotos que você indicou já vem pré-configuradas pela URL do seu site.
+  Se alguma não aparecer, e porque o arquivo foi renomeado/removido da
+  Mídia: basta clicar em "Selecionar imagem" no campo correspondente e
+  subir a foto de novo.
