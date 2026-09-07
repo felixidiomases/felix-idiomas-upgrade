@@ -5,17 +5,8 @@
 @custom-variant dark (&:is(.dark *));
 
 /*
- * Design system definition.
- *
- * The @theme inline block maps CSS custom properties to Tailwind utility
- * classes (e.g. --color-primary -> bg-primary, text-primary).
- *
- * The :root and .dark blocks define the actual color values using oklch.
- * All colors MUST use oklch format.
- *
- * To add a new semantic color:
- * 1. Add the variable to :root (light value) and .dark (dark value)
- * 2. Register it in @theme inline as --color-<name>: var(--<name>)
+ * Design system espelhado do tema WordPress "Félix Idiomas" (wordpress-theme/felix-idiomas/style.css).
+ * Paleta: charcoal, ivory e gold. Tipografia: Playfair Display + Lato.
  */
 
 @theme inline {
@@ -25,7 +16,6 @@
   --radius-xl: calc(var(--radius) + 4px);
   --radius-2xl: calc(var(--radius) + 8px);
   --radius-3xl: calc(var(--radius) + 12px);
-  --radius-4xl: calc(var(--radius) + 16px);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -45,67 +35,51 @@
   --color-border: var(--border);
   --color-input: var(--input);
   --color-ring: var(--ring);
-  --color-ring-offset-background: var(--background);
-  --color-chart-1: var(--chart-1);
-  --color-chart-2: var(--chart-2);
-  --color-chart-3: var(--chart-3);
-  --color-chart-4: var(--chart-4);
-  --color-chart-5: var(--chart-5);
-  --color-sidebar: var(--sidebar);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-cream: var(--cream);
-  --color-cream-foreground: var(--cream-foreground);
+  --color-charcoal: var(--charcoal);
+  --color-charcoal-deep: var(--charcoal-deep);
+  --color-ivory: var(--ivory);
+  --color-ivory-soft: var(--ivory-soft);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }
 
-
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.17 0.008 60);
-  --foreground: oklch(0.96 0.008 80);
-  --card: oklch(0.21 0.009 60);
-  --card-foreground: oklch(0.96 0.008 80);
-  --popover: oklch(0.21 0.009 60);
-  --popover-foreground: oklch(0.96 0.008 80);
-  --primary: oklch(0.79 0.09 85);
-  --primary-foreground: oklch(0.19 0.01 60);
-  --secondary: oklch(0.26 0.01 60);
-  --secondary-foreground: oklch(0.96 0.008 80);
-  --muted: oklch(0.26 0.01 60);
-  --muted-foreground: oklch(0.72 0.012 75);
-  --accent: oklch(0.79 0.09 85);
-  --accent-foreground: oklch(0.19 0.01 60);
-  --destructive: oklch(0.6 0.19 25);
-  --destructive-foreground: oklch(0.98 0.005 80);
-  --border: oklch(0.32 0.014 65);
-  --input: oklch(0.3 0.012 65);
-  --ring: oklch(0.79 0.09 85);
-  --cream: oklch(0.96 0.012 85);
-  --cream-foreground: oklch(0.2 0.01 60);
-  --font-display: "Playfair Display", Georgia, serif;
-  --font-body: "Karla", system-ui, sans-serif;
-  --gradient-gold: linear-gradient(135deg, oklch(0.85 0.09 88), oklch(0.72 0.1 78));
-  --shadow-soft: 0 24px 60px -24px oklch(0 0 0 / 0.65);
-  --chart-1: oklch(0.79 0.09 85);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.21 0.009 60);
-  --sidebar-foreground: oklch(0.96 0.008 80);
-  --sidebar-primary: oklch(0.79 0.09 85);
-  --sidebar-primary-foreground: oklch(0.19 0.01 60);
-  --sidebar-accent: oklch(0.26 0.01 60);
-  --sidebar-accent-foreground: oklch(0.96 0.008 80);
-  --sidebar-border: oklch(0.32 0.014 65);
-  --sidebar-ring: oklch(0.79 0.09 85);
+
+  /* tokens do tema */
+  --charcoal: #242424;
+  --charcoal-deep: #1b1b1b;
+  --ivory: #f3efe8;
+  --ivory-soft: #d9d4cb;
+  --gold: #c7a360;
+  --gold-light: #d8b679;
+
+  --background: var(--ivory);
+  --foreground: var(--charcoal);
+  --card: #ffffff;
+  --card-foreground: var(--charcoal);
+  --popover: #ffffff;
+  --popover-foreground: var(--charcoal);
+  --primary: var(--gold);
+  --primary-foreground: var(--charcoal-deep);
+  --secondary: #ebe6dc;
+  --secondary-foreground: var(--charcoal);
+  --muted: #ebe6dc;
+  --muted-foreground: #6e6a63;
+  --accent: var(--gold);
+  --accent-foreground: var(--charcoal-deep);
+  --destructive: #b3261e;
+  --destructive-foreground: #ffffff;
+  --border: #e3ddd2;
+  --input: #d9d4cb;
+  --ring: var(--gold);
+
+  --shadow-lux: 0 24px 60px -20px rgba(27, 27, 27, 0.35);
+  --gradient-gold: linear-gradient(135deg, #d8b679, #c7a360);
+  --font-display: "Playfair Display", Georgia, "Times New Roman", serif;
+  --font-body: "Lato", -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
 }
 
 @layer base {
@@ -113,27 +87,51 @@
     border-color: var(--color-border);
   }
 
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-body);
+    font-size: 17px;
+    line-height: 1.75;
     -webkit-font-smoothing: antialiased;
   }
 
   h1,
   h2,
   h3,
-  .font-display {
+  h4 {
     font-family: var(--font-display);
+    font-weight: 600;
+    line-height: 1.18;
   }
+}
+
+/* Blocos claros e escuros, como no tema */
+@utility fx-dark {
+  background-color: var(--charcoal);
+  color: var(--ivory);
+}
+
+@utility fx-darker {
+  background-color: var(--charcoal-deep);
+  color: var(--ivory);
+}
+
+@utility fx-light {
+  background-color: var(--ivory);
+  color: var(--charcoal);
 }
 
 @utility eyebrow {
   display: inline-block;
   font-size: 0.72rem;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--color-primary);
+  color: var(--gold);
 }
 
 @utility btn-gold {
@@ -142,13 +140,13 @@
   justify-content: center;
   gap: 0.5rem;
   border-radius: 999px;
-  padding: 0.9rem 1.8rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  padding: 0.9rem 1.9rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   background-image: var(--gradient-gold);
-  color: var(--color-primary-foreground);
+  color: var(--charcoal-deep);
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
@@ -158,13 +156,27 @@
   justify-content: center;
   gap: 0.5rem;
   border-radius: 999px;
-  padding: 0.9rem 1.8rem;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  padding: 0.9rem 1.9rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
-  border: 1px solid var(--color-border);
-  color: var(--color-foreground);
-  transition: border-color 0.25s ease, background-color 0.25s ease;
+  border: 1px solid currentColor;
+  transition: background-color 0.25s ease, color 0.25s ease;
 }
 
+@utility btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 999px;
+  padding: 0.9rem 1.9rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  transition: background-color 0.25s ease, color 0.25s ease;
+}
