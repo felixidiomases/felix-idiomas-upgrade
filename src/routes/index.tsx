@@ -580,7 +580,7 @@ function Contato() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [tel, setTel] = useState("");
-  const [programa, setPrograma] = useState(PROGRAMS[0].title);
+  const [programa, setPrograma] = useState(PROGRAMS[0]?.title ?? "");
   const [mensagem, setMensagem] = useState("");
 
   const enviar = (e: React.FormEvent) => {
