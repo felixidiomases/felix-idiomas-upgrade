@@ -75,19 +75,8 @@ export const PROGRAMS = [
       "Personalize de acordo com os objetivos da empresa",
     ],
   },
-  {
-    title: "Inglês para o Mundo",
-    image:
-      "https://felixidiomas.com/wp-content/themes/felix-idiomas/assets/img/mundo.jpg",
-    description:
-      "Para quem quer trabalhar no exterior, viajar com liberdade ou conquistar vagas internacionais de home office.",
-    features: [
-      "Conversação do dia a dia",
-      "Entrevistas e apresentações",
-      "Cultura e networking global",
-    ],
-  },
 ];
+
 
 export const METODO = {
   eyebrow: "Metodologia Félix",

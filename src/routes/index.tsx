@@ -216,11 +216,11 @@ function Dores() {
         {DORES.items.map((d) => (
           <div
             key={d}
-            className="border-border bg-card flex gap-3 rounded-2xl border p-6 text-sm leading-relaxed"
+            className="border-border bg-card rounded-2xl border p-6 text-sm leading-relaxed"
           >
-            <span className="text-gold">✕</span>
             <span className="text-muted-foreground">{d}</span>
           </div>
+
         ))}
       </div>
       <div className="mt-10 flex justify-center">
@@ -244,7 +244,7 @@ function Programas() {
           {PROGRAMS_HEAD.sub}
         </Muted>
       </div>
-      <div className="mt-12 grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mx-auto mt-12 grid max-w-4xl gap-8 md:grid-cols-2">
         {PROGRAMS.map((p) => (
           <article
             key={p.title}
@@ -665,18 +665,20 @@ function Contato() {
             placeholder={CONTATO.formTel}
             aria-label={CONTATO.formTel}
           />
-          <select
+          <input
             value={programa}
             onChange={(e) => setPrograma(e.target.value)}
             className={field}
+            list="fx-programas"
+            placeholder="Programa de interesse"
             aria-label="Programa de interesse"
-          >
+          />
+          <datalist id="fx-programas">
             {PROGRAMS.map((p) => (
-              <option key={p.title} value={p.title} className="text-charcoal">
-                {p.title}
-              </option>
+              <option key={p.title} value={p.title} />
             ))}
-          </select>
+          </datalist>
+
           <textarea
             rows={4}
             value={mensagem}
