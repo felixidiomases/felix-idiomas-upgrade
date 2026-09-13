@@ -488,8 +488,9 @@ function felix_customize_register( $wp_customize ) {
 		$add_text( "felix_prog{$i}_title", sprintf( __( 'Programa %d - título', 'felix-idiomas' ), $i ), 'felix_programas', $prog_def[ $i ][0] );
 		$add_text( "felix_prog{$i}_desc", sprintf( __( 'Programa %d - descrição', 'felix-idiomas' ), $i ), 'felix_programas', $prog_def[ $i ][1], 'textarea' );
 		$add_image( "felix_prog{$i}_img", sprintf( __( 'Programa %d - foto', 'felix-idiomas' ), $i ), 'felix_programas' );
-		for ( $b = 1; $b <= 3; $b++ ) {
-			$add_text( "felix_prog{$i}_b{$b}", sprintf( __( 'Programa %1$d - item %2$d', 'felix-idiomas' ), $i, $b ), 'felix_programas', $prog_def[ $i ][ $b + 1 ] );
+		for ( $b = 1; $b <= 7; $b++ ) {
+			$default = isset( $prog_def[ $i ][ $b + 1 ] ) ? $prog_def[ $i ][ $b + 1 ] : '';
+			$add_text( "felix_prog{$i}_b{$b}", sprintf( __( 'Programa %1$d - item %2$d (vazio = remove da lista)', 'felix-idiomas' ), $i, $b ), 'felix_programas', $default );
 		}
 	}
 	$add_text( 'felix_prog_btn', __( 'Texto do botão dos cards', 'felix-idiomas' ), 'felix_programas', 'Agendar avaliação gratuita' );

@@ -106,7 +106,7 @@ $hero_btn2_url = $hero_btn2_url ? esc_url( $hero_btn2_url ) : $whats;
 							<p><?php echo esc_html( felix_opt( "felix_prog{$i}_desc", '' ) ); ?></p>
 							<ul class="fx-list">
 								<?php
-								for ( $b = 1; $b <= 3; $b++ ) :
+								for ( $b = 1; $b <= 7; $b++ ) :
 									$item = felix_opt( "felix_prog{$i}_b{$b}", '' );
 									if ( ! $item ) {
 										continue;
